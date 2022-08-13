@@ -44,6 +44,12 @@ Table module is used to format the output of the database.
 # Installation
 ~~~~~~~~~~
 **** Please make sure your have nodeJS installed ****
+!!!!! WARNING DO NO UPGRADE OR CHANGE THE package.json INQUIRER npm package.. ༼ つ ◕_◕ ༽つ ︵ ┻━┻ V9  !!!!!
+!!!!! this code will not work with inquirer v9  as that version uses the new EMS system. Stay with V8 for now, until I figure it out later how to convert. !!!!!
+!!!!! Also, make sure you're on the latest minor version of Node.js. At minimum Node.js 12.20, 14.14, or 16.0. !!!!!
+!!!!! ESM can still import CommonJS packages, but CommonJS packages cannot import ESM packages synchronously. !!!!!
+!!!!! ESM is natively supported by Node.js 12 and later. that npm package that drove me mad..lol (╯°□°）╯︵ ┻━┻┻━┻ ︵ヽ(`Д´)ﾉ︵ ┻━┻ !!!!!
+
 - npm install mysql2 inquirer table
 ~~~~~~~~~~
 
