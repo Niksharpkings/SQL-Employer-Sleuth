@@ -1,0 +1,75 @@
+? what would you like to do? Add Department
+? what is the name of the Department? Service
+
+added service to the database
+
+? what would you like to do? Add Role
+? what is the name of the role? Customer Service
+? what is the salary of the role? 80000
+? which department does the role belong to? Service
+
+Added Customer service to the database
+
+? what would you like to do? Add Employee
+? what is the employee's first name? John
+? what is the employee's last name? Doe
+? what is the employee's manager role? Customer Service
+? who is the employee's manager? Nik Sharpio
+
+Added John Doe to the database
+
+? what would you like to do? Update Employee role
+? Which employee's role do you like to update?
+("Nik", "Sharpio", 1, 0),
+("Jane", "Don", 2, 1),
+("Jack", "Swith", 3, 2),
+("Stone", "Cold", 4, 2),
+("Steve", "Austin", 5, 1),
+("George", "Washingtion", 6, 1),
+("Benjerman", "Franklin", 7, 1),
+("Charles", "LeRoi", 8, 1),
+("Katherine", "Mansfield", 9, 1),
+("Dora", "Carrington", 10, 0),
+("Edward", "Bellamy", 11, 0),
+("Montague", "Summers", 12, 1),
+("Octavia", "Butler", 13, 1),
+("Unica", "Zurn", 14, 1),
+("John", "Smith", 15, 1),
+("Jill", "Green", 16, 1),
+("Jack", "Brown", 17, 2),
+("Steve", "Quinn", 18, 2),
+("Johnny", "Smith", 19, 1),
+("Jill", "Gree", 13, 1),
+("Jack", "Brawn", 9, 2),
+("Steve", "Quin", 8, 2);
+
+
+mysql -u root -p
+
+drop database if exists employee_sleuth;
+create database employee_sleuth;
+show databases;
+use employee_sleuth;
+show full tables;
+source db/schema.sql;
+source db/seeds.sql;
+show full tables;
+select * from department;
+select * from entitlement;
+select * from employee;
+
+npm start
+
+For Demo:
+Department:
+Security
+
+Profession:
+Security Guard
+35000
+
+
+Employee:
+Nikita Sharpio
+
+

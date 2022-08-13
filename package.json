@@ -1,0 +1,40 @@
+{
+  "name": "sql-employer-sleuth",
+  "version": "1.0.0",
+  "description": "A Content management system SQL employee tracking applications using mySQL, mySQL2, Node.js, Inquirer, and console.table.",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Niksharpkings/SQL-Employer-Sleuth.git"
+  },
+  "keywords": [
+    "Employee",
+    "tacker",
+    "sleuth",
+    "github",
+    "mysql",
+    "mysql2",
+    "nodejs",
+    "inquirer",
+    "console.table",
+    "jest"
+  ],
+  "author": "Nikita \"nik\" Sharpio / niksharpkings",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Niksharpkings/SQL-Employer-Sleuth/issues"
+  },
+  "homepage": "https://github.com/Niksharpkings/SQL-Employer-Sleuth#readme",
+  "devDependencies": {
+    "jest": "^28.1.3"
+  },
+  "dependencies": {
+    "console.table": "^0.10.0",
+    "inquirer": "^8.0.0",
+    "mysql2": "^2.3.3"
+  }
+}
