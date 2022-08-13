@@ -2,10 +2,10 @@
   "name": "sql-employer-sleuth",
   "version": "1.0.0",
   "description": "A Content management system SQL employee tracking applications using mySQL, mySQL2, Node.js, Inquirer, and console.table.",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "test": "jest",
-    "start": "node index.js"
+    "start": "node app.js"
   },
   "repository": {
     "type": "git",
