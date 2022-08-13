@@ -42,49 +42,68 @@ Table module is used to format the output of the database.
 - https://www.npmjs.com/package/console.table
 
 # Installation
+~~~~~~~~~~
+**** Please make sure your have nodeJS installed ****
 - npm install mysql2 inquirer table
+~~~~~~~~~~
+
 
 # Database Setup
+~~~~~~~~~~
+**** please make sure you install mysql **** 
+mysql -u root -p
+Password: <your password>
+drop database if exists employee_sleuth;
+create database employee_sleuth;
+show databases;
+use employee_sleuth;
+show full tables;
+source db/schema.sql;
+source db/seeds.sql;
+show full tables;
+select * from department;
+select * from entitlement;
+select * from employee;
+~~~~~~~~~~
+
+# Run
+~~~~~~~~~
+**** please make sure to change your password in the ./db/connection.js file ****
+ $ npm start
+~~~~~~~~~
 
 # Table Setup
 queries asynchronous
 
 As the image illustrates, your schema should contain the following three tables:
 --------------------------------
+~~~~~~~~~
 - department
-~~~~~~~~~~~~
 - id: INT PRIMARY KEY
-
-- name: VARCHAR(30) to hold department name
---------------------------------
+- name: VARCHAR(30) to hold department name 
 - role
-~~~~~~
+~~~~~~~~~
 - id: INT PRIMARY KEY
-
 - title: VARCHAR(30) to hold role title
-
 - salary: DECIMAL to hold role salary
-
 - department_id: INT to hold reference to department role belongs to
---------------------------------
+~~~~~~~~~
 - employee
-~~~~~~~~~~
 - id: INT PRIMARY KEY
-- 
 - first_name: VARCHAR(30) to hold employee first name
-- 
 - last_name: VARCHAR(30) to hold employee last name
-- 
 - role_id: INT to hold reference to employee role
-- 
 - manager_id: INT to hold reference to another employee that is the manager of the current employee (null if the employee has no manager)
+~~~~~~~~~~
+
 --------------------------------
 
 - separate file that contains functions for performing specific SQL queries. 
 - A constructor function or class for organizing these. 
 - include a seeds.sql file.
 - pre-populate the database for development of individual features much easier.
-bonus:(optional) 
+
+bonus:(optional) we be done in the upcoming months
 
 - Update employee managers: Add a CLI command to allow the user to add a new employee to the database.
 
