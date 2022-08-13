@@ -1,13 +1,22 @@
 const inquirer = require("inquirer");
-const db = require('./db/connection');
+// const db = require('./db/connection');
 // const consoleTable = require("console.table");
-const CLOG = require('./assets/js/consoleText');
+ const CLOG = require('./assets/js/consoleText');
 
+const mysql = require("mysql2");
+// Connect to database
+const db = mysql.createConnection({
+  host: "localhost",
+  port: 3306,
+  user: "root",
+  password: "$!NSAmySQL92",
+  database: "employee_sleuth"
+});
 
 let query;
 
 function startSleuth() {
-  console.log(CLOG.clogIntro);
+  
   return inquirer
     .prompt({
       type: "list",
@@ -32,7 +41,11 @@ function startSleuth() {
       }
     })
     .then((answers) => {
-      console.log(`You Have Selected/Input'ed: ${answers.selection}`);
+      console.log(`
+      =================================================
+      ϟ------- You Picked ${answers.selection} -------ϟ
+      =================================================
+      `);
       switch (answers.selection) {
         case "Add Department":
           addDepartment();
@@ -47,10 +60,10 @@ function startSleuth() {
           viewDepartment();
           break;
         case "View Profession":
-          viewProfession();
+          viewProfession()
           break;
         case "View Employee":
-          viewEmployee();
+          viewEmployee()
           break;
         case "Update Employees Profession":
           updateProfession();
@@ -69,8 +82,12 @@ function addDepartment() {
       {
         type: "input",
         name: "department",
-        message: "What Department Do You Want To Add?"
-      }
+        message:
+          `
+      =================================================
+      ϟ----- What Department Do You Want To Add? -----ϟ
+      =================================================
+      `}
     ).then((res) => {
       const { department } = res;
       query = `INSERT INTO department (name) VALUES ("${department}")`;
@@ -78,23 +95,56 @@ function addDepartment() {
     });
 }
 
-const addProfession = () => {
+function addProfession() {
   inquirer
     .prompt([
       {
         type: "input",
         name: "profession",
-        message: "What Profession Do You Want To Add?"
+        message: `
+        =================================================
+        ϟ----- What Profession Do You Want To Add? -----ϟ
+        =================================================
+        `,
+        validate: (validate) => {
+          if (!validate) {
+            return "Please Input A Profession's title";
+          }
+          return true;
+        }
       },
       {
         type: "input",
         name: "salary",
-        message: "What Is The Salary For This Profession?"
+        message(answer) {
+          return `
+          =================================================
+          ϟ- What Is The Salary For ${answer.profession}?-ϟ
+          =================================================
+          `
+        },
+        // validate: (answer) => {
+        //   if (answer) {
+        //     return "Please Input A Valid Salary Number";
+        //   }
+        //   return true;
+        // }
       },
       {
         type: "input",
         name: "department_id",
-        message: "What Is The Department ID For This Profession?"
+        message(answer) {
+          return `
+          =================================================
+          ϟ-What Is The Department ID For ${answer.profession}?-ϟ
+          =================================================`
+        },
+        // validate: (answer) => {
+        //   if (!answer) {
+        //     return "Please Input A Valid Department ID number";
+        //   }
+        //   return true;
+        // }
       }
     ])
     .then((res) => {
@@ -102,7 +152,7 @@ const addProfession = () => {
       query = `INSERT INTO entitlement (profession, salary, department_id) VALUES ("${profession}","${salary}","${department_id}")`;
       dbQuery();
     });
-};
+}
 
 function addEmployee() {
   inquirer
@@ -110,22 +160,69 @@ function addEmployee() {
       {
         type: "input",
         name: "first_name",
-        message: "What Is The First Name Of The Employee?"
+        message: `
+        =================================================
+        ϟ--- What Is The First Name Of The Employee? ---ϟ
+        =================================================
+        `,
+        validate: (validate) => {
+          if (!validate) {
+            return "Please Input A First Name";
+          }
+          return true;
+        }
       },
       {
         type: "input",
         name: "last_name",
-        message: "What Is The Last Name Of The Employee?"
+        message(answer) {
+          return `
+        =================================================
+        ϟ- ${answer.first_name}, and the Last Name Of The Employee? -ϟ
+        =================================================
+`
+        },
+        validate: (answer) => {
+          if (!answer) {
+            return "Please Input A Last Name";
+          }
+          return true;
+        }
       },
       {
         type: "input",
         name: "profession_id",
-        message: "What Is The Employee's Entitlement ID Of The Employee?"
+        message(answer) {
+          return `
+          =================================================
+          ϟ- What Is ${answer.last_name}, ${answer.first_name} Entitlement ID Of The Employee? -ϟ
+          =================================================
+          `
+        },
+        validate: (answer) => {
+          if (!answer) {
+            return "Please Input A Valid Entitlement ID Number";
+          }
+          return true;
+        }
       },
       {
         type: "input",
         name: "manager_id",
-        message: "What Is The Manager ID Of The Employee?"
+        message(answer) {
+          return `
+          =================================================
+          ϟ- What Is ${answer.last_name}, ${answer.first_name} Manager ID Of The Employee? -ϟ
+          =================================================
+`
+        },
+        validate: (answer) => {
+
+          if (!answer) {
+            return "Please Input A Valid Manager ID Number";
+          }
+          return true;
+        }
       }
     ]).then((res) => {
       const {
@@ -134,7 +231,16 @@ function addEmployee() {
         profession_id,
         manager_id
       } = res;
-      query = `INSERT INTO employee (first_name, last_name, profession_id, manager_id) VALUE ("${first_name}", "${last_name}", "${profession_id}", "${manager_id}")`;
+      query = `INSERT INTO employee (
+        first_name,
+        last_name,
+        profession_id,
+        manager_id) VALUE (
+          "${first_name}",
+          "${last_name}",
+          "${profession_id}",
+          "${manager_id}"
+          )`;
       dbQuery();
     });
 }
@@ -162,15 +268,33 @@ function updateProfession() {
       {
         type: "input",
         name: "employee",
-        message: "What Employee Do You Want To Update? (Use Number From The profession_ID Column Only)"
+        message: `
+        =================================================
+        ϟ- What Employee Do You Want To Update? *Use The profession_ID Number Only* -ϟ
+        =================================================
+        `,
+        validate: (answer) => {
+          if (!answer) {
+            return "Please Input A profession_ID number that matches to the employee you want to edit";
+          }
+          return true;
+        }
       }
     );
 }
 
-const dbQuery = () => {
+function dbQuery() {
   db.query(query, (err, res) => {
-    if (err) throw err;
+    if (err)
+      throw err;
     console.table(res);
     startSleuth();
-  })
+  });
 }
+
+db.connect(function(err) {
+  if (err) throw err;
+  console.log(CLOG.clogIntro);
+  console.log(CLOG.clogTPG);
+  startSleuth();
+});
