@@ -72,6 +72,13 @@ select * from employee;
  $ npm start
 ~~~~~~~~~
 
+# DEMO VIDEO
+- youtube:
+https://youtu.be/z5xUsUipvE0
+
+- google drive
+https://drive.google.com/file/d/18-pCs7eewuhqRMnVATyktGvHfQ2DkeP3/view?usp=sharing
+- raw video in https://github.com/Niksharpkings/SQL-Employer-Sleuth/blob/main/assets/video/
 # Table Setup
 queries asynchronous
 
